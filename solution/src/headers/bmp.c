@@ -1,10 +1,10 @@
-#include "../include/headers/bmp.h"
+#include "../../include/headers/bmp.h"
 
 static const uint16_t BMP_FILE_SIGNATURE = 0x4d42;
 static const uint32_t HEADER_INFO_SIZE = 40;
 static const uint16_t BITS_PER_PIXEL = 24;
 
-static create_header(uint64_t width, uint64_t height) {
+static struct bmp_header create_header(uint32_t width, uint32_t height) {
     return (struct bmp_header) {
         .bfType = BMP_FILE_SIGNATURE,
         .bfileSize = sizeof(struct bmp_header) + sizeof(struct pixel) * width * height,
@@ -21,7 +21,7 @@ static create_header(uint64_t width, uint64_t height) {
         .biYPelsPerMeter = 0,
         .biClrUsed = 0,
         .biClrImportant = 0,
-    }
+    };
 }
 
 static uint32_t get_padding_from_input(uint32_t width) {
@@ -40,22 +40,22 @@ static uint32_t get_padding_to_output(uint32_t width) {
     }
 }
 
-enum read_status from_bmp(FILE *in, struct image *img) {
+enum read_status from_bmp(FILE *in, struct image **img) {
     struct bmp_header header;
 
-    fread(&header, sizeof(bmpHeader), 1, in);
+    fread(&header, sizeof(struct bmp_header), 1, in);
     if (header.bfType != BMP_FILE_SIGNATURE) return READ_INVALID_SIGNATURE;
     if (header.biBitCount != BITS_PER_PIXEL) return READ_INVALID_BITS;
 
     *img = create_image(header.biWidth, header.biHeight);
-    uint32_t padding = get_padding(header.biWidth);
+    uint32_t padding = get_padding_from_input(header.biWidth);
 
     for (size_t i = 0; i < header.biHeight; i++) {
         struct pixel tmp_pixel;
 
         for (size_t j = 0; j < header.biWidth; j++) {
             fread(&tmp_pixel, sizeof(struct pixel), 1, in);
-            img->data[header.biWidth * i + j] = tmp_pixel;
+            (*img)->data[header.biWidth * i + j] = tmp_pixel;
         }
 
         for (size_t j = 0; j < padding; j++) {
@@ -73,8 +73,8 @@ enum write_status to_bmp(FILE *out, struct image const *img) {
     fseek(out, bmpHeader.bOffBits, SEEK_SET);
 
     struct pixel pixel;
-    for (size_t i = 0; i < img->height; i++) {
-        for (size_t j = 0; j < img->width; j++) {
+    for (uint32_t i = 0; i < img->height; i++) {
+        for (uint32_t j = 0; j < img->width; j++) {
             pixel = img->data[img->width * i + j];
             if (fwrite(&pixel, sizeof(struct pixel), 1, out) < 1) return WRITE_ERROR;
         }

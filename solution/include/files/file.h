@@ -1,3 +1,6 @@
+#ifndef FILE_H
+#define FILE_H
+
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -17,3 +20,5 @@ enum close_status {
 enum open_status file_open(FILE** file, const char* path, const char* user_rights);
 
 enum close_status file_close(FILE** file);
+
+#endif

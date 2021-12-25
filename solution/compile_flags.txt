@@ -3,5 +3,5 @@
 -pedantic
 -Wall
 -Werror
--ggdb 
+-ggdb
 -Wno-attributes

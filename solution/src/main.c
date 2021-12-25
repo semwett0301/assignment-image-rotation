@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include "../include/files/file.h"
 #include "../include/headers/bmp.h"
-#include "../include/images/image.h"
 #include "../include/transforms/rotate.h"
 
 int main( int argc, char** argv ) {
@@ -11,7 +10,7 @@ int main( int argc, char** argv ) {
     }
 
     FILE *input;
-    struct image input_image;
+    struct image* input_image;
     enum open_status openStatus = file_open(&input, argv[1], "rb");
     if (openStatus == OPEN_FILE_NOT_EXIST) {
         fprintf(stderr, "Файла ввода не существует");
@@ -40,7 +39,8 @@ int main( int argc, char** argv ) {
         return 1;
     }
 
-    struct image output_image = rotate(input_image);
+
+    struct image* output_image = rotate(input_image);
     destroy_image(input_image);
 
     FILE* output;
@@ -60,7 +60,7 @@ int main( int argc, char** argv ) {
         return 1;
     }
 
-    enum write_status write_stat = to_bmp(output, &output_image);
+    enum write_status write_stat = to_bmp(output, output_image);
     if (write_stat == WRITE_ERROR) {
         fprintf(stderr, "При записи файла вывода возникла ошибка");
         return 1;

@@ -1,4 +1,5 @@
 #include "../../include/files/file.h"
+#include <errno.h>
 
 enum open_status file_open(FILE** file, const char* path, const char* user_rights) {
     *file = fopen(path, user_rights);
@@ -10,13 +11,13 @@ enum open_status file_open(FILE** file, const char* path, const char* user_right
         return OPEN_FILE_PERM_DENIED;
     }
 
-    return OPEN_OTHER_ERROR
+    return OPEN_OTHER_ERROR;
 }
 
 enum close_status file_close(FILE** file) {
     if (*file) {
         if (fclose(*file) == 0) {
-            free(*file);
+//            free(*file);
             return CLOSE_SUCCESS;
         } else {
             return CLOSE_OTHER_ERROR;
