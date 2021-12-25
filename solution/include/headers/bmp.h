@@ -2,9 +2,10 @@
 #define BMP_H
 
 #include "../images/image.h"
-#include  <stdint.h>
 #include <inttypes.h>
+#include  <stdint.h>
 #include <stdio.h>
+
 struct __attribute__((packed)) bmp_header{
 uint16_t bfType;
 uint32_t bfileSize;
