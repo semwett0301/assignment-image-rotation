@@ -22,3 +22,4 @@ enum open_status file_open(FILE** file, const char* path, const char* user_right
 enum close_status file_close(FILE** file);
 
 #endif
+

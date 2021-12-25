@@ -25,4 +25,4 @@ enum close_status file_close(FILE** file) {
     }
 
     return CLOSE_FILE_NOT_EXIST;
-};
+}
