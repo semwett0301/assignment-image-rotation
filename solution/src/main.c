@@ -41,6 +41,7 @@ int main( int argc, char** argv ) {
 
 
     struct image* output_image = rotate(input_image);
+
     destroy_image(input_image);
 
     FILE* output;
