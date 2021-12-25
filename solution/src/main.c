@@ -1,7 +1,7 @@
-#include <stdio.h>
 #include "../include/files/file.h"
 #include "../include/headers/bmp.h"
 #include "../include/transforms/rotate.h"
+#include <stdio.h>
 
 int main( int argc, char** argv ) {
     if (argc < 3) {
