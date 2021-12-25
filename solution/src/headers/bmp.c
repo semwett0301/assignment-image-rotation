@@ -62,7 +62,6 @@ enum write_status to_bmp(FILE *out, struct image const *img) {
     if (fwrite(&bmpHeader, sizeof(struct bmp_header), 1, out) < 1) return WRITE_ERROR;
     fseek(out, bmpHeader.bOffBits, SEEK_SET);
 
-    struct pixel pixel;
     const uint8_t pad_bytes = 0;
     if(!img->data) {
         return WRITE_ERROR;
