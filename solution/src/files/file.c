@@ -1,4 +1,4 @@
-#include "../../include/files/file.h"
+#include "file.h"
 #include <errno.h>
 
 enum open_status file_open(FILE** file, const char* path, const char* user_rights) {

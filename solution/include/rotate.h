@@ -1,7 +1,7 @@
 #ifndef ROTATE_H
 #define ROTATE_H
 
-#include "../images/image.h"
+#include "image.h"
 #include <inttypes.h>
 #include <stddef.h>
 #include <stdint.h>

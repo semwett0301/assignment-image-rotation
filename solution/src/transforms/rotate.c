@@ -1,4 +1,4 @@
-#include "../../include/transforms/rotate.h"
+#include "rotate.h"
 
 struct image* rotate( struct image *source ) {
     struct image* new_image = create_image(source->height, source->width);

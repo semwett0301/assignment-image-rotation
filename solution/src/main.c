@@ -1,6 +1,6 @@
-#include "../include/files/file.h"
-#include "../include/headers/bmp.h"
-#include "../include/transforms/rotate.h"
+#include "file.h"
+#include "bmp.h"
+#include "rotate.h"
 #include <stdio.h>
 
 int main( int argc, char** argv ) {
@@ -30,6 +30,11 @@ int main( int argc, char** argv ) {
     enum read_status readStatus = from_bmp(input, &input_image);
     if (readStatus == READ_INVALID_SIGNATURE || readStatus == READ_INVALID_BITS) {
         fprintf(stderr, "При чтении картинки возникла ошибка (не тот формат)");
+        return 1;
+    }
+
+    if (readStatus == READ_FAILED) {
+        fprintf(stderr, "При чтении картинки возникла ошибка (не удалось считать)");
         return 1;
     }
 

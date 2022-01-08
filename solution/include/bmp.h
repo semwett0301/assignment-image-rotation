@@ -1,7 +1,7 @@
 #ifndef BMP_H
 #define BMP_H
 
-#include "../images/image.h"
+#include "image.h"
 #include <inttypes.h>
 #include  <stdint.h>
 #include <stdio.h>
@@ -25,9 +25,10 @@ uint32_t biClrImportant;
 };
 
 enum read_status {
-    READ_OK = 0,
+    READ_OK,
     READ_INVALID_SIGNATURE,
-    READ_INVALID_BITS
+    READ_INVALID_BITS,
+    READ_FAILED
     /* коды других ошибок  */
 };
 

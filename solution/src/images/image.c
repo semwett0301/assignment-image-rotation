@@ -1,4 +1,4 @@
-#include "../../include/images/image.h"
+#include "image.h"
 #include <stdlib.h>
 
 struct image* create_image(uint32_t width, uint32_t height) {
@@ -17,7 +17,7 @@ void destroy_image(struct image* source) {
 }
 
 struct pixel* find_pixel_in_image(uint32_t x_coord, uint32_t y_coord, struct image* source) {
-    uint32_t number = x_coord + y_coord * source->width;
+    const uint32_t number = x_coord + y_coord * source->width;
     return &source->data[number];
 }
 
